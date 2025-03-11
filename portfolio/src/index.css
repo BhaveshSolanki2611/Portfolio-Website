@@ -276,53 +276,51 @@ li {
 
 /* Mobile Touch Improvements */
 @media (hover: none) and (pointer: coarse) {
-  /* Increase touch targets for better mobile experience */
+  /* Enhance touch targets for better accessibility */
   a, button, .interactive {
-    padding: 0.7rem;
-    min-height: 44px;
+    padding: 0.75rem;
+    min-height: 44px; /* iOS minimum recommendation */
     min-width: 44px;
   }
-  
-  /* Buttons need extra padding for touch */
+
   .btn {
     padding: 0.85rem 1.75rem;
   }
-  
-  /* Remove hover effects that don't make sense on touch devices */
+
+  /* Disable hover effects on touch devices and replace with active states */
   a:hover, button:hover, .interactive:hover {
     transform: none !important;
   }
-  
-  /* Add active touch states */
+
   .touch-active {
     opacity: 0.7;
     transform: scale(0.97) !important;
     transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
   }
-  
+
   /* Optimize scrolling */
   * {
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Disable text selection during taps */
   a, button, .interactive {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
   }
-  
-  /* Prevent iOS zooming on form inputs */
+
+  /* Prevent iOS zoom on form inputs */
   input, select, textarea {
-    font-size: 16px;
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
   }
-  
+
   /* Fix for fixed positioned elements on iOS Safari */
   .navbar, .fixed-element {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
-  
+
   /* Prevent pull-to-refresh on iOS */
   html, body {
     overscroll-behavior-y: contain;
@@ -336,8 +334,43 @@ li {
     padding-right: max(0px, env(safe-area-inset-right));
     padding-bottom: max(0px, env(safe-area-inset-bottom));
   }
-  
+
   .navbar {
     padding-top: max(1rem, env(safe-area-inset-top));
   }
+}
+
+/* Orientation Change Handling */
+.orientation-changing {
+  visibility: hidden;
+  pointer-events: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Use CSS custom properties for viewport heights (solves mobile height issues) */
+.hero-section {
+  min-height: calc(100 * var(--vh, 1vh));
+}
+
+/* Swipe Gesture Animations */
+.swiped-left {
+  animation: swipeLeft 0.3s ease-out;
+}
+
+.swiped-right {
+  animation: swipeRight 0.3s ease-out;
+}
+
+@keyframes swipeLeft {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes swipeRight {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0); }
 }

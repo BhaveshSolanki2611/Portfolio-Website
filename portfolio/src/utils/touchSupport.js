@@ -103,12 +103,134 @@ export const optimizeTouchScroll = () => {
 };
 
 /**
+ * Handle orientation changes on mobile devices
+ * Ensures proper recalculation of styles and layouts when device orientation changes
+ */
+export const handleOrientationChanges = () => {
+  // Calculate the real viewport height for mobile browsers
+  const setViewportHeight = () => {
+    // Set custom viewport height property that works correctly on mobile
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    document.documentElement.style.setProperty('--vw', `${window.innerWidth * 0.01}px`);
+  };
+  
+  // Initial calculation
+  setViewportHeight();
+  
+  // Wait time after orientation change or resize
+  const ORIENTATION_CHANGE_DELAY = 100;
+  let orientationTimer;
+  
+  // Listen for orientation changes
+  window.addEventListener('orientationchange', () => {
+    // Add class during orientation change
+    document.body.classList.add('orientation-changing');
+    
+    // Clear any existing timer
+    clearTimeout(orientationTimer);
+    
+    // Set a timeout to handle after the orientation change is complete
+    orientationTimer = setTimeout(() => {
+      // Fix scroll position and recalculate dimensions
+      window.scrollTo(0, 0);
+      setViewportHeight();
+      
+      // Remove the orientation changing class
+      document.body.classList.remove('orientation-changing');
+      
+      // Dispatch a custom event for components to listen for
+      window.dispatchEvent(new CustomEvent('orientationchangecomplete'));
+    }, ORIENTATION_CHANGE_DELAY);
+  });
+  
+  // Also update on resize for good measure
+  window.addEventListener('resize', () => {
+    clearTimeout(orientationTimer);
+    orientationTimer = setTimeout(setViewportHeight, ORIENTATION_CHANGE_DELAY);
+  });
+};
+
+/**
+ * Add swipe gesture detection to elements
+ * @param {string} selector - CSS selector for elements to add swipe detection to
+ * @param {object} callbacks - Object with callbacks for swipe directions
+ */
+export const enableSwipeGestures = (selector = '.swipeable', callbacks = {}) => {
+  if (!('ontouchstart' in window)) return;
+  
+  const swipeableElements = document.querySelectorAll(selector);
+  
+  swipeableElements.forEach(element => {
+    let startX, startY, distX, distY;
+    const threshold = 100; // Minimum distance for a swipe
+    const restraint = 100; // Maximum perpendicular distance for a swipe
+    const allowedTime = 300; // Maximum time allowed for the swipe
+    let startTime;
+    
+    // Track touch start position and time
+    element.addEventListener('touchstart', function(e) {
+      const touch = e.changedTouches[0];
+      startX = touch.pageX;
+      startY = touch.pageY;
+      startTime = new Date().getTime();
+    }, { passive: true });
+    
+    // Detect direction on touch end
+    element.addEventListener('touchend', function(e) {
+      const touch = e.changedTouches[0];
+      distX = touch.pageX - startX;
+      distY = touch.pageY - startY;
+      const elapsedTime = new Date().getTime() - startTime;
+      
+      // Check if time and distance thresholds are met
+      if (elapsedTime <= allowedTime) {
+        // Horizontal swipe
+        if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+          // Right swipe
+          if (distX > 0 && callbacks.onSwipeRight) {
+            callbacks.onSwipeRight(element, e);
+          } 
+          // Left swipe
+          else if (distX < 0 && callbacks.onSwipeLeft) {
+            callbacks.onSwipeLeft(element, e);
+          }
+        }
+        // Vertical swipe
+        else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
+          // Down swipe
+          if (distY > 0 && callbacks.onSwipeDown) {
+            callbacks.onSwipeDown(element, e);
+          } 
+          // Up swipe
+          else if (distY < 0 && callbacks.onSwipeUp) {
+            callbacks.onSwipeUp(element, e);
+          }
+        }
+      }
+    }, { passive: false });
+  });
+};
+
+/**
  * Initialize all touch optimizations
  */
 export const initTouchSupport = () => {
   enableTouchFeedback();
   removeTouchDelay();
   optimizeTouchScroll();
+  handleOrientationChanges();
+  
+  // Add default swipe gesture handling for project cards
+  enableSwipeGestures('.project-card', {
+    onSwipeLeft: (element) => {
+      element.classList.add('swiped-left');
+      setTimeout(() => element.classList.remove('swiped-left'), 300);
+    },
+    onSwipeRight: (element) => {
+      element.classList.add('swiped-right');
+      setTimeout(() => element.classList.remove('swiped-right'), 300);
+    }
+  });
 };
 
 export default initTouchSupport; 

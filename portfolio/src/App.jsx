@@ -192,7 +192,12 @@ function App() {
             {/* Project 1 */}
             <div className="project-card">
               <div className="project-image">
-                <img src="/images/React movie web app image.png" alt="React Movie Web-App" />
+                <img 
+                  src="/images/React movie web app image.png" 
+                  alt="React Movie Web-App"
+                  loading="lazy"
+                  sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                />
               </div>
               <div className="project-content">
                 <h3>React Movie Web-App</h3>
@@ -212,7 +217,12 @@ function App() {
             {/* Project 2 */}
             <div className="project-card">
               <div className="project-image">
-                <img src="/images/CRM image.png" alt="CRM and Campaign Manager" />
+                <img 
+                  src="/images/CRM image.png" 
+                  alt="CRM and Campaign Manager"
+                  loading="lazy"
+                  sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                />
               </div>
               <div className="project-content">
                 <h3>CRM and Campaign Manager</h3>
@@ -231,7 +241,12 @@ function App() {
             {/* Project 3 */}
             <div className="project-card">
               <div className="project-image">
-                <img src="/images/Weather wave image.png" alt="WeatherWave App" />
+                <img 
+                  src="/images/Weather wave image.png" 
+                  alt="WeatherWave App"
+                  loading="lazy"
+                  sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                />
               </div>
               <div className="project-content">
                 <h3>WeatherWave App</h3>
@@ -250,7 +265,12 @@ function App() {
             {/* Project 4 */}
             <div className="project-card">
               <div className="project-image">
-                <img src="/images/Netflix UI IMAGE.png" alt="Netflix UI Clone" />
+                <img 
+                  src="/images/Netflix UI IMAGE.png" 
+                  alt="Netflix UI Clone"
+                  loading="lazy"
+                  sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                />
               </div>
               <div className="project-content">
                 <h3>Netflix UI Clone with Anime Theme</h3>
