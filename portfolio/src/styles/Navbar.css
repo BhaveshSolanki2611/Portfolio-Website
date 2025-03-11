@@ -109,64 +109,112 @@
   box-shadow: var(--hover-shadow);
 }
 
+/* Improved mobile navigation */
 @media screen and (max-width: 768px) {
   .menu-icon {
     display: block;
+    z-index: 101;
   }
 
   .nav-menu {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 2rem 0;
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+    padding: 5rem 2rem 2rem;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: var(--transition);
-    z-index: -1;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-top: none;
+    transition: all 0.4s ease-in-out;
+    z-index: 100;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    overflow-y: auto;
+    justify-content: flex-start;
   }
 
   .nav-menu.active {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
-    z-index: 1;
+    right: 0;
   }
 
   .nav-menu li {
-    margin: 1rem 0;
-    text-align: center;
+    margin: 1.2rem 0;
+    text-align: left;
     width: 100%;
     margin-left: 0;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition-delay: calc(0.1s * var(--item-index, 0));
+  }
+  
+  .nav-menu.active li {
+    opacity: 1;
+    transform: translateX(0);
   }
   
   .nav-menu a {
     display: block;
     padding: 0.75rem 0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
   
   .nav-menu a::after {
     display: none;
   }
+  
+  /* Fix for navbar content */
+  .navbar-container {
+    padding: 0 1rem;
+    width: 95%;
+  }
 }
 
 @media screen and (max-width: 576px) {
   .navbar-container {
-    padding: 0 1rem;
+    padding: 0 0.8rem;
+    width: 95%;
   }
   
   .logo a {
     font-size: 1.5rem;
+  }
+  
+  .nav-menu {
+    width: 85%;
+    padding: 5rem 1.5rem 2rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .navbar-container {
+    padding: 0 0.5rem;
+    width: 98%;
+  }
+  
+  .logo a {
+    font-size: 1.3rem;
+  }
+  
+  .nav-menu {
+    width: 90%;
+    padding: 5rem 1rem 2rem;
+  }
+  
+  .nav-menu a {
+    font-size: 1.1rem;
+  }
+  
+  .menu-icon {
+    font-size: 1.3rem;
+    padding: 0.4rem;
   }
 } 
