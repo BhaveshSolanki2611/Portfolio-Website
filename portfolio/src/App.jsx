@@ -340,8 +340,8 @@ function App() {
                 </div>
                 <div className="contact-details">
                   <h3>Email</h3>
-                  <a href="mailto:bhaveshsolanki2611@gmail.com" className="contact-link">
-                    bhaveshsolanki2611@gmail.com
+                  <a href="mailto:bhaveshsolanki26112004@gmail.com" className="contact-link">
+                    bhaveshsolanki26112004@gmail.com
                   </a>
                 </div>
               </div>

@@ -122,13 +122,13 @@
     position: fixed;
     top: 0;
     right: -100%;
-    width: 75%;
+    width: 50%; /* Further reduced width */
     height: 100vh;
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
-    padding: 5rem 2rem 2rem;
+    padding: 5rem 1rem 2rem; /* Reduced right padding */
     opacity: 0;
     visibility: hidden;
     transition: all 0.4s ease-in-out;
@@ -145,7 +145,7 @@
   }
 
   .nav-menu li {
-    margin: 1.2rem 0;
+    margin: 0.6rem 0; /* Further reduced vertical spacing */
     text-align: left;
     width: 100%;
     margin-left: 0;
@@ -162,9 +162,11 @@
   
   .nav-menu a {
     display: block;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0; /* Reduced vertical padding */
     font-size: 1.2rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    width: fit-content; /* Only take up as much space as needed */
+    min-width: 45%; /* Further reduced minimum width */
   }
   
   .nav-menu a::after {
@@ -189,8 +191,12 @@
   }
   
   .nav-menu {
-    width: 85%;
-    padding: 5rem 1.5rem 2rem;
+    width: 55%; /* Further reduced width */
+    padding: 5rem 0.75rem 2rem; /* Reduced right padding */
+  }
+  
+  .nav-menu a {
+    min-width: 35%; /* Even smaller minimum width */
   }
 }
 
@@ -205,12 +211,14 @@
   }
   
   .nav-menu {
-    width: 90%;
-    padding: 5rem 1rem 2rem;
+    width: 60%; /* Further reduced width */
+    padding: 5rem 0.75rem 2rem; /* Reduced padding */
   }
   
   .nav-menu a {
     font-size: 1.1rem;
+    width: fit-content;
+    min-width: 30%; /* Further reduced minimum width */
   }
   
   .menu-icon {
