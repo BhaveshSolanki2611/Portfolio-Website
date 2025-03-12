@@ -28,14 +28,12 @@ function App() {
     
     // Create mailto link with form data
     const subject = encodeURIComponent(data.subject);
-    const body = encodeURIComponent(`
-      Name: ${data.name}
-      Email: ${data.email}
-      Message: ${data.message}
-    `);
+    const body = encodeURIComponent(`Name: ${data.name}
+Email: ${data.email}
+Message: ${data.message}`);
     
     // Open email client
-    window.location.href = `mailto:bhaveshsolanki2611@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:bhaveshsolanki26112004@gmail.com?subject=${subject}&body=${body}`;
     
     // Show success message
     const alertElement = document.querySelector('.contact-alert');
